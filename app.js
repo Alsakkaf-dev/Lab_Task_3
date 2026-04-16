@@ -55,3 +55,9 @@ console.log("Verified Object:", JSON.parse(myJson));
 // PART 2: AJAX (Asynchronous JavaScript and XML)
 // ==========================================
 
+// Step 1: Create the XMLHttpRequest object
+const xhr = new XMLHttpRequest();
+
+// Step 2: Configure it
+// We are using a free testing API: JSONPlaceholder
+xhr.open("GET", "https://jsonplaceholder.typicode.com/users/1", true);
