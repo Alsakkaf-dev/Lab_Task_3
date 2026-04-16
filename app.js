@@ -77,3 +77,11 @@ xhr.onload = function() {
         console.log("Error! Status code:", xhr.status);
     }
 };
+
+// Step 4: Handle network errors (like no internet)
+xhr.onerror = function() {
+    console.log("Network error occurred!");
+};
+
+// Step 5: Send the request
+xhr.send();
