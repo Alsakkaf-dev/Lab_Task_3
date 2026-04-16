@@ -51,6 +51,10 @@ console.log("Exercise 1 JSON:", myJson);
 // 3. Verifying by parsing it back
 console.log("Verified Object:", JSON.parse(myJson));
 
+
+
+
+
 // ==========================================
 // PART 2: AJAX (Asynchronous JavaScript and XML)
 // ==========================================
@@ -61,3 +65,15 @@ const xhr = new XMLHttpRequest();
 // Step 2: Configure it
 // We are using a free testing API: JSONPlaceholder
 xhr.open("GET", "https://jsonplaceholder.typicode.com/users/1", true);
+
+// Step 3: Define what happens when we receive the response
+xhr.onload = function() {
+    if (xhr.status === 200) { 
+        // 200 = OK
+        const data = JSON.parse(xhr.responseText);
+        console.log("AJAX Success! User Name:", data.name);
+        console.log("User Email:", data.email);
+    } else {
+        console.log("Error! Status code:", xhr.status);
+    }
+};
