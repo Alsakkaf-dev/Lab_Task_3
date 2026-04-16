@@ -85,3 +85,5 @@ xhr.onerror = function() {
 
 // Step 5: Send the request
 xhr.send();
+
+console.log("--- This line runs BEFORE the AJAX data arrives! ---");
