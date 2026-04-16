@@ -4,4 +4,8 @@ const jsonString = `{
     "age": 22,
     "isEnrolled": true,
     "gpa": 3.8
+    "subjects": ["Math", "Physics", "Programming"],
+    "address": {
+        "city": "Johor Bahru",
+        "country": "Malaysia"
 }`;
