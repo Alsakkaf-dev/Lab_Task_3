@@ -1,10 +1,3 @@
-// Convert the string into a JavaScript Object
-const studentObj = JSON.parse(jsonString);
-
-// Print specific properties to the console
-console.log("Name from JSON:", studentObj.name);
-console.log("First Subject:", studentObj.subjects[0]);
-
 // A JSON string representing a student
 const jsonString = `{
     "name": "Ahmad Hafiz",
@@ -16,6 +9,13 @@ const jsonString = `{
         "city": "Johor Bahru",
         "country": "Malaysia"
 }`;
+// Convert the string into a JavaScript Object
+const studentObj = JSON.parse(jsonString);
+
+// Print specific properties to the console
+console.log("Name from JSON:", studentObj.name);
+console.log("First Subject:", studentObj.subjects[0]);
+
 
 // A standard JavaScript object
 const myData = { 
