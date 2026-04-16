@@ -50,3 +50,8 @@ console.log("Exercise 1 JSON:", myJson);
 
 // 3. Verifying by parsing it back
 console.log("Verified Object:", JSON.parse(myJson));
+
+// ==========================================
+// PART 2: AJAX (Asynchronous JavaScript and XML)
+// ==========================================
+
