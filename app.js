@@ -89,3 +89,18 @@ xhr.onerror = function() {
 xhr.send();
 
 console.log("--- This line runs BEFORE the AJAX data arrives! ---");
+
+
+
+
+// --- Exercise 2: Interactive Classic AJAX ---
+
+// 1. Get references to the UI elements
+const loadBtn = document.getElementById('loadBtn');
+const resultArea = document.getElementById('result');
+
+// 2. Add the Event Listener
+loadBtn.addEventListener('click', function() {
+    resultArea.textContent = "Fetching data...";
+    // We will put the request logic here next
+});
