@@ -102,5 +102,23 @@ const resultArea = document.getElementById('result');
 // 2. Add the Event Listener
 loadBtn.addEventListener('click', function() {
     resultArea.textContent = "Fetching data...";
-    // We will put the request logic here next
+    // We will put the request logic : 
+    const xhr2 = new XMLHttpRequest();
+    xhr2.open("GET", "https://jsonplaceholder.typicode.com/users/1", true);
+
+    xhr2.onload = function() {
+        if (xhr2.status === 200) {
+            const userData = JSON.parse(xhr2.responseText);
+            
+            // Display the specific data from the PDF: Name and Email
+            resultArea.innerHTML = `
+                User: ${userData.name} <br> 
+                Email: ${userData.email}
+            `;
+        } else {
+            resultArea.textContent = "Error loading data.";
+        }
+    };
+
+    xhr2.send();
 });
