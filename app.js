@@ -16,3 +16,17 @@ const jsonString = `{
         "city": "Johor Bahru",
         "country": "Malaysia"
 }`;
+
+// A standard JavaScript object
+const myData = { 
+    name: "Siti", 
+    age: 21 
+};
+
+// Convert the object into a JSON string
+const resultString = JSON.stringify(myData);
+
+console.log("The stringified version:", resultString);
+
+// Pretty-print version (makes it easier to read in the console)
+console.log(JSON.stringify(myData, null, 2));
