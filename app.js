@@ -151,3 +151,9 @@ async function getSingleUser() {
 
 // Call the function
 getSingleUser();
+
+// Example using .then() chains (Alternative Style)
+fetch("https://jsonplaceholder.typicode.com/users/3")
+    .then(res => res.json())
+    .then(data => console.log("Fetch (Then style) Success! User 3:", data.name))
+    .catch(err => console.log("Fetch (Then style) Error:", err));
