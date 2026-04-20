@@ -2,10 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Web Dev Learning</title>
+    <title>Web Dev Project</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <h1>Check the Console (F12) to see JSON in action</h1>
+    <!-- Mini-Project Section -->
+    <hr />
+    <h1>User Directory</h1>
+    <button onclick="loadUsers()">Load All Users</button>
+    <p id="status">Click the button to load users from the API</p>
+
+    <!-- This is where our cards will go -->
+    <div class="grid" id="userGrid"></div>
 
     <!-- UI for Exercise 2 -->
     <div style="text-align: center; margin-top: 50px">
