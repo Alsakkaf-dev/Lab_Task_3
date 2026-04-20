@@ -91,10 +91,7 @@ xhr.send();
 console.log("--- This line runs BEFORE the AJAX data arrives! ---");
 
 
-
-
 // --- Exercise 2: Interactive Classic AJAX ---
-
 // 1. Get references to the UI elements
 const loadBtn = document.getElementById('loadBtn');
 const resultArea = document.getElementById('result');
@@ -122,6 +119,10 @@ loadBtn.addEventListener('click', function() {
 
     xhr2.send();
 });
+
+
+
+
 
 // ==========================================
 // PART 3: Fetch API (Modern HTTP Requests)
@@ -157,3 +158,10 @@ fetch("https://jsonplaceholder.typicode.com/users/3")
     .then(res => res.json())
     .then(data => console.log("Fetch (Then style) Success! User 3:", data.name))
     .catch(err => console.log("Fetch (Then style) Error:", err));
+
+
+// ==========================================
+// PART 4: jQuery
+// Section 4.1: Fast, small, feature-rich JS library.
+// Motto: "Write Less, Do More."
+// ==========================================
