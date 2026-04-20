@@ -122,3 +122,32 @@ loadBtn.addEventListener('click', function() {
 
     xhr2.send();
 });
+
+// ==========================================
+// PART 3: Fetch API (Modern HTTP Requests)
+// ==========================================
+
+// 3.4 Modern Approach using async/await
+async function getSingleUser() {
+    try {
+        console.log("Fetch: Starting request...");
+        
+        // Fetch returns a Promise. 'await' waits until it is done.
+        const response = await fetch("https://jsonplaceholder.typicode.com/users/2");
+        
+        // Always check if the response was successful (status 200-299)
+        if (!response.ok) {
+            throw new Error(`HTTP Error! Status: ${response.status}`);
+        }
+
+        // We must 'await' the conversion to JSON as well
+        const data = await response.json();
+        
+        console.log("Fetch Success! User 2:", data.name);
+    } catch (error) {
+        console.log("Fetch Error:", error.message);
+    }
+}
+
+// Call the function
+getSingleUser();
