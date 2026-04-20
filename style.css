@@ -51,3 +51,16 @@ button:hover {
 
 .card h3 { color: #2E75B6; margin: 0 0 8px; }
 .card p { color: #555; font-size: 14px; margin: 4px 0; }
+
+/* --- Styling for the Exercise 2 Container --- */
+.ajax-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* --- Styling for the specific Result text --- */
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #2E75B6;
+}
