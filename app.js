@@ -170,10 +170,10 @@ async function loadUsers() {
         // Dynamic construction of user card components
         users.forEach(user => {
             const cardMarkup = `
-                <div class="card">
-                    <h3>${user.name}</h3>
-                    <p>📧 Email: ${user.email}</p>
-                    <p>📍 Location: ${user.address.city}</p>
+            <div class="card">
+            <h3>${user.name}</h3>
+            <p>📧 Email: ${user.email}</p>
+            <p>📍 Location: ${user.address.city}</p>
                 </div>
             `;
             grid.append(cardMarkup);
@@ -188,7 +188,7 @@ $(document).ready(function () {
         "padding-bottom": "10px",
         "border-bottom": "2px solid #2E75B6"
     });
-          
+    
     $("#jqLoadBtn").on("click", loadUserWithJQuery);
     // Update operational status indicator
     $("#status").text("Application systems initialized. Ready to fetch data.");
@@ -196,51 +196,93 @@ $(document).ready(function () {
     $("#toggleBtn").on("click", function () {
         // Toggle user cards with transition animation
         $("#userGrid").slideToggle(400);
-
+        
         // Provide contextual feedback on button text
         $(this).text($(this).text().includes("Hide") ? "Show Viewport" : "Hide Viewport");
     });
 });
 
+// Real-time filtering via keyup event
+$("#searchBox").on("keyup", function() {
+    const query = $(this).val().toLowerCase();
+    const resultsGrid = $("#searchResults");
+    
+    resultsGrid.empty(); // Clear current results
 
-// --- Exercise 1 ---
+    if (query.length < 1) return;
 
-// 1. Creating the JavaScript Object (about myself)
-const aboutMe = {
-    "fullName": "Mohammed_Alsakkaf",
-    "age": 23,
-    "hobbies": ["Coding", "Gaming", "Reading"],
-    "address": {
-        "city": "Johor Bahro",
-        "country": "Malaysia"
+    // Perform case-insensitive search
+    const matches = searchCache.filter(user => 
+        user.name.toLowerCase().includes(query) || 
+        user.email.toLowerCase().includes(query)
+    );
+
+    // Update UI based on results
+    if (matches.length > 0) {
+        $("#searchStatus").text(`Found ${matches.length} matches.`);
+        matches.forEach(user => {
+            resultsGrid.append(`
+                <div class="card">
+                    <h3>${user.name}</h3>
+                    <p>📧 ${user.email}</p>
+                </div>
+            `);
+        });
+    } else {
+        $("#searchStatus").text("No results found matching your criteria.");
     }
-};
-
-// 2. Verifying by converting it to string
-const myJson = JSON.stringify(aboutMe);
-console.log("Exercise 1 JSON:", myJson);
-
-// 3. Verifying by parsing it back
-console.log("Verified Object:", JSON.parse(myJson));
+});
 
 
+// Section 4.8: Local cache for live filtering
+let searchCache = [];
 
-
-/**
- * Implementation of jQuery shorthand AJAX
- * Demonstrates simplified GET requests
- */
-function loadUserWithJQuery() {
-    const url = "https://jsonplaceholder.typicode.com/users/3";
-
-    // $.get is the specific jQuery method mentioned in Section 4.7
-    $.get(url, function(data) {
-        // We use jQuery's .html() to update the display
-        $("#result").html(`
+// Initialize search data on startup
+$.get("https://jsonplaceholder.typicode.com/users", function(users) {
+    searchCache = users;
+        $("#searchStatus").text(`${users.length} users indexed for search.`);
+    });
+    
+    
+    
+    // --- Exercise 1 ---
+    
+    // 1. Creating the JavaScript Object (about myself)
+    const aboutMe = {
+        "fullName": "Mohammed_Alsakkaf",
+        "age": 23,
+        "hobbies": ["Coding", "Gaming", "Reading"],
+        "address": {
+            "city": "Johor Bahro",
+            "country": "Malaysia"
+        }
+    };
+    
+    // 2. Verifying by converting it to string
+    const myJson = JSON.stringify(aboutMe);
+    console.log("Exercise 1 JSON:", myJson);
+    
+    // 3. Verifying by parsing it back
+    console.log("Verified Object:", JSON.parse(myJson));
+    
+    
+    
+    
+    /**
+     * Implementation of jQuery shorthand AJAX
+     * Demonstrates simplified GET requests
+    */
+   function loadUserWithJQuery() {
+       const url = "https://jsonplaceholder.typicode.com/users/3";
+       
+       // $.get is the specific jQuery method mentioned in Section 4.7
+       $.get(url, function(data) {
+           // We use jQuery's .html() to update the display
+           $("#result").html(`
             <strong>Fetched via jQuery:</strong> ${data.name}<br>
             <strong>Username:</strong> ${data.username}
-        `);
-    }).fail(function() {
-        $("#result").text("Error: jQuery request failed.");
-    });
-}
+            `);
+        }).fail(function() {
+            $("#result").text("Error: jQuery request failed.");
+        });
+    }
