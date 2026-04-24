@@ -12,10 +12,10 @@
     <h1 class="main-title">User Directory</h1>
     <button onclick="loadUsers()">Load All Users</button>
     <p id="status">Click the button to load users from the API</p>
-    
+
     <!-- This is where our cards will go -->
     <div class="grid" id="userGrid"></div>
-    
+
     <!-- Clean UI for Exercise 2 -->
     <div class="ajax-container">
       <button id="jqLoadBtn">Load User ($.get Method)</button>
@@ -23,11 +23,22 @@
       <div id="result">Data will appear here...</div>
       <button id="toggleBtn">Toggle Viewport (jQuery)</button>
     </div>
-
-
     
-
- <!--  Script Section -->
+    <!-- Live Search Module (Part 4.8) -->
+    <hr />
+    <div class="ajax-container">
+      <h2>Live User Search</h2>
+      <input
+        type="text"
+        id="searchBox"
+        placeholder="Type a name to filter records..."
+        style="width: 80%; padding: 12px; margin-bottom: 10px"
+      />
+      <p id="searchStatus" style="font-style: italic; color: #666"></p>
+      <div id="searchResults" class="grid"></div>
+    </div>
+    
+    <!--  Script Section -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="app.js"></script>
   </body>
