@@ -20,9 +20,9 @@ console.log("First Subject:", studentObj.subjects[0]);
 
 
 // A standard JavaScript object
-const myData = { 
-    name: "Siti", 
-    age: 21 
+const myData = {
+    name: "Siti",
+    age: 21
 };
 
 // Convert the object into a JSON string
@@ -32,26 +32,6 @@ console.log("The stringified version:", resultString);
 
 // Pretty-print version (makes it easier to read in the console)
 console.log(JSON.stringify(myData, null, 2));
-
-// --- Exercise 1 ---
-
-// 1. Creating the JavaScript Object (about myself)
-const aboutMe = {
-    "fullName": "Mohammed_Alsakkaf",
-    "age": 23,
-    "hobbies": ["Coding", "Gaming", "Reading"],
-    "address": {
-        "city": "Johor Bahro",
-        "country": "Malaysia"
-    }
-};
-
-// 2. Verifying by converting it to string
-const myJson = JSON.stringify(aboutMe);
-console.log("Exercise 1 JSON:", myJson);
-
-// 3. Verifying by parsing it back
-console.log("Verified Object:", JSON.parse(myJson));
 
 
 
@@ -69,8 +49,8 @@ const xhr = new XMLHttpRequest();
 xhr.open("GET", "https://jsonplaceholder.typicode.com/users/1", true);
 
 // Step 3: Define what happens when we receive the response
-xhr.onload = function() {
-    if (xhr.status === 200) { 
+xhr.onload = function () {
+    if (xhr.status === 200) {
         // 200 = OK
         const data = JSON.parse(xhr.responseText);
         console.log("AJAX Success! User Name:", data.name);
@@ -81,7 +61,7 @@ xhr.onload = function() {
 };
 
 // Step 4: Handle network errors (like no internet)
-xhr.onerror = function() {
+xhr.onerror = function () {
     console.log("Network error occurred!");
 };
 
@@ -97,16 +77,16 @@ const loadBtn = document.getElementById('loadBtn');
 const resultArea = document.getElementById('result');
 
 // 2. Add the Event Listener
-loadBtn.addEventListener('click', function() {
+loadBtn.addEventListener('click', function () {
     resultArea.textContent = "Fetching data...";
     // We will put the request logic : 
     const xhr2 = new XMLHttpRequest();
     xhr2.open("GET", "https://jsonplaceholder.typicode.com/users/1", true);
 
-    xhr2.onload = function() {
+    xhr2.onload = function () {
         if (xhr2.status === 200) {
             const userData = JSON.parse(xhr2.responseText);
-            
+
             // Display the specific data from the PDF: Name and Email
             resultArea.innerHTML = `
                 User: ${userData.name} <br> 
@@ -132,10 +112,10 @@ loadBtn.addEventListener('click', function() {
 async function getSingleUser() {
     try {
         console.log("Fetch: Starting request...");
-        
+
         // Fetch returns a Promise. 'await' waits until it is done.
         const response = await fetch("https://jsonplaceholder.typicode.com/users/2");
-        
+
         // Always check if the response was successful (status 200-299)
         if (!response.ok) {
             throw new Error(`HTTP Error! Status: ${response.status}`);
@@ -143,7 +123,7 @@ async function getSingleUser() {
 
         // We must 'await' the conversion to JSON as well
         const data = await response.json();
-        
+
         console.log("Fetch Success! User 2:", data.name);
     } catch (error) {
         console.log("Fetch Error:", error.message);
@@ -169,7 +149,40 @@ fetch("https://jsonplaceholder.typicode.com/users/3")
  * UI Manipulation using jQuery
  * Simplified DOM access and modification
  */
-$(document).ready(function() {
+/**
+ * asynchronous fetch operation for the user directory
+ * integrates Fetch API with DOM injection
+ */
+async function loadUsers() {
+    const status = $("#status");
+    const grid = $("#userGrid");
+
+    status.text("Synchronizing data with server...");
+    grid.empty(); // Clear existing entries
+
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!response.ok) throw new Error("Data retrieval failed");
+
+        const users = await response.json();
+        status.text(`Load successful: ${users.length} records processed.`);
+
+        // Dynamic construction of user card components
+        users.forEach(user => {
+            const cardMarkup = `
+                <div class="card">
+                    <h3>${user.name}</h3>
+                    <p>📧 Email: ${user.email}</p>
+                    <p>📍 Location: ${user.address.city}</p>
+                </div>
+            `;
+            grid.append(cardMarkup);
+        });
+    } catch (err) {
+        status.text("Critical error during data fetch: " + err.message);
+    }
+}
+$(document).ready(function () {
     // Applying global header styles via jQuery selectors
     $(".main-title").css({
         "padding-bottom": "10px",
@@ -178,4 +191,33 @@ $(document).ready(function() {
 
     // Update operational status indicator
     $("#status").text("Application systems initialized. Ready to fetch data.");
+    // Interactive event handler for grid visibility
+    $("#toggleBtn").on("click", function () {
+        // Toggle user cards with transition animation
+        $("#userGrid").slideToggle(400);
+
+        // Provide contextual feedback on button text
+        $(this).text($(this).text().includes("Hide") ? "Show Viewport" : "Hide Viewport");
+    });
 });
+
+
+// --- Exercise 1 ---
+
+// 1. Creating the JavaScript Object (about myself)
+const aboutMe = {
+    "fullName": "Mohammed_Alsakkaf",
+    "age": 23,
+    "hobbies": ["Coding", "Gaming", "Reading"],
+    "address": {
+        "city": "Johor Bahro",
+        "country": "Malaysia"
+    }
+};
+
+// 2. Verifying by converting it to string
+const myJson = JSON.stringify(aboutMe);
+console.log("Exercise 1 JSON:", myJson);
+
+// 3. Verifying by parsing it back
+console.log("Verified Object:", JSON.parse(myJson));
