@@ -1,45 +1,39 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>Web Dev Project</title>
+    <title>Web Dev Lab Project</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-
-  <body>
-    <!-- Mini-Project Section -->
-    <hr />
+</head>
+<body>
     <h1 class="main-title">User Directory</h1>
-    <button onclick="loadUsers()">Load All Users</button>
-    <p id="status">Click the button to load users from the API</p>
 
-    <!-- This is where our cards will go -->
+    <!-- 1. Fetch User Cards Project -->
+    <button onclick="loadUsers()">Load All Users (Fetch)</button>
+    <p id="status">Click the button to synchronize data.</p>
     <div class="grid" id="userGrid"></div>
 
-    <!-- Clean UI for Exercise 2 -->
+    <!-- 2. Classic AJAX / jQuery Get Section -->
     <div class="ajax-container">
-      <button id="jqLoadBtn">Load User ($.get Method)</button>
-      <button id="loadBtn">Load Users (Classic AJAX)</button>
-      <div id="result">Data will appear here...</div>
-      <button id="toggleBtn">Toggle Viewport (jQuery)</button>
+        <button id="loadBtn">Classic AJAX (XHR)</button>
+        <button id="jqLoadBtn">Shorthand GET (jQuery)</button>
+        <div id="result">Interaction output appears here...</div>
+        <button id="toggleBtn">Show/Hide Grid (Slide Effect)</button>
     </div>
-    
-    <!-- Live Search Module (Part 4.8) -->
-    <hr />
+
+    <!-- 3. Live Search Module -->
+    <hr>
     <div class="ajax-container">
-      <h2>Live User Search</h2>
-      <input
-        type="text"
-        id="searchBox"
-        placeholder="Type a name to filter records..."
-        style="width: 80%; padding: 12px; margin-bottom: 10px"
-      />
-      <p id="searchStatus" style="font-style: italic; color: #666"></p>
-      <div id="searchResults" class="grid"></div>
+        <h2>Live Index Search</h2>
+        <input type="text" id="searchBox" placeholder="Start typing a name..." 
+               style="width: 80%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;">
+        <p id="searchStatus"></p>
+        <div id="searchResults" class="grid"></div>
     </div>
+
+
     
-    <!--  Script Section -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="app.js"></script>
-  </body>
+</body>
 </html>
