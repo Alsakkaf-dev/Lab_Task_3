@@ -165,3 +165,17 @@ fetch("https://jsonplaceholder.typicode.com/users/3")
 // Section 4.1: Fast, small, feature-rich JS library.
 // Motto: "Write Less, Do More."
 // ==========================================
+/**
+ * UI Manipulation using jQuery
+ * Simplified DOM access and modification
+ */
+$(document).ready(function() {
+    // Applying global header styles via jQuery selectors
+    $(".main-title").css({
+        "padding-bottom": "10px",
+        "border-bottom": "2px solid #2E75B6"
+    });
+
+    // Update operational status indicator
+    $("#status").text("Application systems initialized. Ready to fetch data.");
+});
