@@ -188,7 +188,8 @@ $(document).ready(function () {
         "padding-bottom": "10px",
         "border-bottom": "2px solid #2E75B6"
     });
-
+          
+    $("#jqLoadBtn").on("click", loadUserWithJQuery);
     // Update operational status indicator
     $("#status").text("Application systems initialized. Ready to fetch data.");
     // Interactive event handler for grid visibility
@@ -221,3 +222,25 @@ console.log("Exercise 1 JSON:", myJson);
 
 // 3. Verifying by parsing it back
 console.log("Verified Object:", JSON.parse(myJson));
+
+
+
+
+/**
+ * Implementation of jQuery shorthand AJAX
+ * Demonstrates simplified GET requests
+ */
+function loadUserWithJQuery() {
+    const url = "https://jsonplaceholder.typicode.com/users/3";
+
+    // $.get is the specific jQuery method mentioned in Section 4.7
+    $.get(url, function(data) {
+        // We use jQuery's .html() to update the display
+        $("#result").html(`
+            <strong>Fetched via jQuery:</strong> ${data.name}<br>
+            <strong>Username:</strong> ${data.username}
+        `);
+    }).fail(function() {
+        $("#result").text("Error: jQuery request failed.");
+    });
+}
