@@ -262,3 +262,12 @@ function toggleUnits() {
 }
 
 document.querySelector('#temp-toggle').addEventListener('click', toggleUnits);
+
+const debouncedSearch = debounce(() => {
+    // We only trigger automatically if there are 3+ chars
+    if (cityInput.value.length >= 3) {
+        handleSearch();
+    }
+}, 500);
+
+cityInput.addEventListener('input', debouncedSearch);
