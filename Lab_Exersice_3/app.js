@@ -19,7 +19,6 @@ const weatherCodeMap = {
     61: { desc: "Slight Rain", icon: "💧" },
     71: { desc: "Slight Snow", icon: "❄️" },
     95: { desc: "Thunderstorm", icon: "⛈️" }
-    // Add more codes as needed or a default fallback
 };
 
 function getWeatherInfo(code) {
@@ -43,4 +42,27 @@ function showError(message) {
     errorBanner.classList.remove('hidden');
     // Helper to clear error when starting a new search
     setTimeout(() => errorBanner.classList.add('hidden'), 5000);
+}
+
+async function getCoordinates(city) {
+    try {
+        const response = await fetch(`${GEO_API_URL}?name=${city}&count=1&language=en&format=json`);
+        
+        // Task 4.16 - Handling HTTP errors explicitly
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Task 2.6 - If no city is found, return null instead of throwing
+        if (!data.results || data.results.length === 0) {
+            return null;
+        }
+
+        return data.results[0]; // Return first match: {latitude, longitude, name, timezone}
+    } catch (error) {
+        console.error("Geocoding Error:", error);
+        throw error;
+    }
 }
