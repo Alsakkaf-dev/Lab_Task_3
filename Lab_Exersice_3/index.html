@@ -1,19 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WeatherNow - Real-Time Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
     <div id="app-container">
-        <!-- Dashboard components will go here -->
+      <header>
+        <h1>WeatherNow</h1>
+        
+        <div class="search-area">
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Enter city name (e.g. London)..."
+            autocomplete="off"
+          />
+          <button id="search-btn">Search</button>
+        </div>
+
+        <!-- Error message banner (initially hidden) -->
+        <div id="error-banner" class="hidden"></div>
+      </header>
     </div>
+
+
+
 
     <!-- Scripts will be added later -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
