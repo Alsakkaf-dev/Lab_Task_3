@@ -86,3 +86,17 @@ button {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     min-height: 120px; /* Space for icon and temp */
 }
+
+/* Utility to hide/show elements */
+.hidden {
+    display: none !important;
+}
+
+#error-banner {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+}
