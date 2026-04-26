@@ -236,3 +236,29 @@ async function handleSearch() {
 
 // Attach the search to button click
 searchBtn.addEventListener('click', handleSearch);
+
+let currentUnit = 'C';
+let lastTempData = null; // To store current temp without re-fetching
+
+// Conversion logic
+function toggleUnits() {
+    const tempElement = document.querySelector('#current-temp');
+    const toggleBtn = document.querySelector('#temp-toggle');
+    let currentVal = parseFloat(tempElement.textContent);
+
+    if (isNaN(currentVal)) return;
+
+    if (currentUnit === 'C') {
+        const fahrenheit = (currentVal * 9/5) + 32;
+        tempElement.textContent = Math.round(fahrenheit);
+        toggleBtn.textContent = "To °C";
+        currentUnit = 'F';
+    } else {
+        const celsius = (currentVal - 32) * 5/9;
+        tempElement.textContent = Math.round(celsius);
+        toggleBtn.textContent = "To °F";
+        currentUnit = 'C';
+    }
+}
+
+document.querySelector('#temp-toggle').addEventListener('click', toggleUnits);
