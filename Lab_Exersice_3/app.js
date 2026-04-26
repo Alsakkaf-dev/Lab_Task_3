@@ -86,3 +86,39 @@ async function getWeatherData(lat, lon) {
 
     return await response.json();
 }
+
+function updateUI(weatherData, cityName) {
+    const current = weatherData.current_weather;
+    const weatherInfo = getWeatherInfo(current.weathercode);
+
+    // Update Current Weather Card
+    document.querySelector('#city-name').textContent = cityName;
+    document.querySelector('#current-temp').textContent = Math.round(current.temperature);
+    document.querySelector('#weather-desc').textContent = weatherInfo.desc + " " + weatherInfo.icon;
+    
+    // Wind and Humidity (Assuming index 0 for current time)
+    document.querySelector('#humidity').textContent = weatherData.hourly.relativehumidity_2m[0];
+    document.querySelector('#wind-speed').textContent = current.windspeed;
+
+    // Update 7-Day Forecast (Task 1.3 logic)
+    const forecastContainer = document.querySelector('#forecast-container');
+    forecastContainer.innerHTML = ''; // Clear skeleton cards
+
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(weatherData.daily.time[i]);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const maxTemp = Math.round(weatherData.daily.temperature_2m_max[i]);
+        const minTemp = Math.round(weatherData.daily.temperature_2m_min[i]);
+        const dayInfo = getWeatherInfo(weatherData.daily.weathercode[i]);
+
+        const card = document.createElement('div');
+        card.className = 'forecast-card';
+        card.innerHTML = `
+            <div>${dayName}</div>
+            <div style="font-size: 2rem; margin: 10px 0;">${dayInfo.icon}</div>
+            <div style="font-weight: 600;">${maxTemp}° / <span style="font-weight: 300;">${minTemp}°</span></div>
+            <div style="font-size: 0.8rem; color: #666;">${dayInfo.desc}</div>
+        `;
+        forecastContainer.appendChild(card);
+    }
+}
