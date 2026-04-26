@@ -203,7 +203,7 @@ async function handleSearch() {
         errorBanner.classList.add('hidden');
         toggleLoading(true);
 
-        // 1. Resolve coordinates (UPDATED to use your fetchWithTimeout for Task 4.19)
+        // 1. Resolve coordinates (UPDATED to use fetchWithTimeout for Task 4.19)
         const geoResponse = await fetchWithTimeout(`${GEO_API_URL}?name=${city}&count=1&language=en&format=json`);
         if (!geoResponse.ok) throw new Error(`HTTP Error: ${geoResponse.status}`);
         const geoData = await geoResponse.json();
@@ -216,7 +216,7 @@ async function handleSearch() {
 
         const locationData = geoData.results[0];
 
-        // 2. Fetch weather (UPDATED to use your fetchWithTimeout)
+        // 2. Fetch weather
         const weatherResponse = await fetchWithTimeout(`${WEATHER_API_URL}?latitude=${locationData.latitude}&longitude=${locationData.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&windspeed_unit=kmh`);
         if (!weatherResponse.ok) throw new Error(`Weather API Error: ${weatherResponse.status}`);
         const weatherData = await weatherResponse.json();
