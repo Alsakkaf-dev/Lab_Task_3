@@ -1,10 +1,10 @@
 // A JSON string representing a student
 const jsonString = `{
-    "name": "Ahmad Hafiz",
-    "age": 22,
+    "name": "Mohammed Alsakkaf",
+    "age": 23,
     "isEnrolled": true,
     "gpa": 3.8,
-    "subjects": ["Math", "Physics", "Programming"],
+    "subjects": ["Software Engineering", "Databases", "Networking"],
     "address": {
         "city": "Johor Bahru",
         "country": "Malaysia"
@@ -281,4 +281,54 @@ $(document).ready(function() {
     $("#countryInput").keypress(function(e) {
         if (e.which == 13) $("#searchBtn").click();
     });
+});
+
+// ==========================================
+// ADDITIONAL CHALLENGES (Exercise 3 & 4)
+// ==========================================
+
+// Challenge 3A: Load first 5 posts
+$("#loadPostsBtn").on("click", async function() {
+    const resArea = $("#challengeResult");
+    resArea.html("Loading posts...");
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+        const posts = await response.json();
+        const firstFive = posts.slice(0, 5); // Get only the first 5
+
+        resArea.empty();
+        firstFive.forEach(post => {
+            resArea.append(`<p style="border-bottom:1px solid #ccc; padding:5px;"><strong>Title:</strong> ${post.title}<br><em>${post.body}</em></p>`);
+        });
+    } catch (err) {
+        resArea.text("Error loading posts.");
+    }
+});
+
+// Challenge 3B: Specific User by ID
+$("#specificUserBtn").on("click", async function() {
+    const id = $("#userIdInput").val();
+    const resArea = $("#challengeResult");
+    
+    if(!id || id < 1 || id > 10) {
+        resArea.text("Please enter a valid ID (1-10)");
+        return;
+    }
+
+    resArea.html("Fetching user...");
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+        if (!response.ok) throw new Error();
+        const user = await response.json();
+        resArea.html(`Target Found: ${user.name} from ${user.address.city}`);
+    } catch (err) {
+        resArea.text("User not found.");
+    }
+});
+
+// Challenge 4A: Clear Button Logic
+$("#clearSearchBtn").on("click", function() {
+    $("#searchBox").val("");         // Empty input
+    $("#searchResults").empty();     // Clear results
+    $("#searchStatus").text("");     // Reset status
 });

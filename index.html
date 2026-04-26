@@ -1,17 +1,51 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Web Development Portfolio Lab</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  </head>
+  <body>
     <h1 class="main-title">Interactive Development Lab</h1>
 
     <!-- 1. JSON and Basic Grid -->
     <button onclick="loadUsers()">Synchronize User Records</button>
     <p id="status">System idle.</p>
     <div class="grid" id="userGrid"></div>
+
+    <!-- Exercise 3 Challenge: Specific User & Posts -->
+    <div
+      class="ajax-container"
+      style="
+        background: #e1e8ef;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px;
+      "
+    >
+      <h3>Fetch API Challenges</h3>
+      <input
+        type="number"
+        id="userIdInput"
+        placeholder="User ID (1-10)"
+        min="1"
+        max="10"
+        style="padding: 10px; width: 100px"
+      />
+      <button id="specificUserBtn" style="display: inline-block; margin: 5px">
+        Get Specific User
+      </button>
+      <button
+        id="loadPostsBtn"
+        style="display: inline-block; margin: 5px; background: #28a745"
+      >
+        Load 5 Posts
+      </button>
+      <div
+        id="challengeResult"
+        style="margin-top: 15px; font-weight: bold"
+      ></div>
+    </div>
 
     <!-- 2. jQuery Shorthand and Classic Methods -->
     <div class="ajax-container">
@@ -22,29 +56,58 @@
     </div>
 
     <!-- 3. Real-time Search Module -->
-    <hr>
+    <hr />
     <div class="ajax-container">
       <h3>Internal Registry Search</h3>
-      <input type="text" id="searchBox" placeholder="Search index by name...">
+      <input type="text" id="searchBox" placeholder="Search index by name..." />
+      <button
+        id="clearSearchBtn"
+        style="
+          display: inline-block;
+          margin: 10px;
+          background: #dc3545;
+          padding: 8px 15px;
+        "
+      >
+        Clear Search
+      </button>
       <p id="searchStatus"></p>
       <div id="searchResults" class="grid"></div>
     </div>
 
     <!-- 4. Final Project: Country Explorer (Section 5) -->
-    <hr>
+    <hr />
     <div class="ajax-container">
-        <h3>Global Country Explorer</h3>
-        <input type="text" id="countryInput" placeholder="Enter country name (e.g. Malaysia)...">
-        <button id="searchBtn">Retrieve Information</button>
-        <p id="error" style="color:red;"></p>
-        <div id="card" style="display:none; padding:20px; border:1px solid #ccc; background:#fff; border-radius:8px;">
-            <h2 id="countryName"></h2>
-            <img id="flag" src="" alt="Flag" style="width: 150px; border: 1px solid #ddd;">
-            <div id="info"></div>
-        </div>
+      <h3>Global Country Explorer</h3>
+      <input
+        type="text"
+        id="countryInput"
+        placeholder="Enter country name (e.g. Malaysia)..."
+      />
+      <button id="searchBtn">Retrieve Information</button>
+      <p id="error" style="color: red"></p>
+      <div
+        id="card"
+        style="
+          display: none;
+          padding: 20px;
+          border: 1px solid #ccc;
+          background: #fff;
+          border-radius: 8px;
+        "
+      >
+        <h2 id="countryName"></h2>
+        <img
+          id="flag"
+          src=""
+          alt="Flag"
+          style="width: 150px; border: 1px solid #ddd"
+        />
+        <div id="info"></div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
