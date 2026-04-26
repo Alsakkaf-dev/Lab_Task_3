@@ -66,3 +66,23 @@ async function getCoordinates(city) {
         throw error;
     }
 }
+
+async function getWeatherData(lat, lon) {
+    const params = new URLSearchParams({
+        latitude: lat,
+        longitude: lon,
+        current_weather: true,
+        hourly: 'temperature_2m,relativehumidity_2m',
+        daily: 'temperature_2m_max,temperature_2m_min,weathercode',
+        timezone: 'auto',
+        windspeed_unit: 'kmh'
+    });
+
+    const response = await fetch(`${WEATHER_API_URL}?${params.toString()}`);
+    
+    if (!response.ok) {
+        throw new Error(`Weather API Error: ${response.status}`);
+    }
+
+    return await response.json();
+}
