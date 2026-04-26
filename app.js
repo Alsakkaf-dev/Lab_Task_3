@@ -223,3 +223,62 @@ $(document).ready(function () {
         }
     });
 });
+
+// ==========================================
+// PART 5: Final Project (Integrated System)
+// Using REST Countries API with JSON + Fetch + jQuery
+// ==========================================
+
+/**
+ * Executes a full-stack search for national data
+ * @param {string} name - The country query
+ */
+async function searchCountry(name) {
+    $("#error").text("");
+    $("#card").hide();
+
+    try {
+        const url = `https://restcountries.com/v3.1/name/${encodeURIComponent(name)}?fullText=true`;
+        const response = await fetch(url);
+
+        if (!response.ok) throw new Error("Regional entity not identified.");
+
+        const data = await response.json();
+        const country = data[0];
+
+        // Component update using jQuery
+        $("#flag").attr("src", country.flags.png);
+        $("#countryName").text(country.name.common);
+        
+        // Dynamic construction of info table
+        const population = country.population.toLocaleString();
+        const region = country.region;
+        const capital = country.capital ? country.capital[0] : "N/A";
+
+        $("#info").html(`
+            <p><strong>Capital:</strong> ${capital}</p>
+            <p><strong>Region:</strong> ${region}</p>
+            <p><strong>Population:</strong> ${population}</p>
+        `);
+
+        $("#card").fadeIn(600);
+
+    } catch (err) {
+        $("#error").text("Identification failed: " + err.message);
+    }
+}
+
+/**
+ * Bind Search Trigger in main scope
+ */
+$(document).ready(function() {
+    $("#searchBtn").on("click", function() {
+        const query = $("#countryInput").val().trim();
+        if (query) searchCountry(query);
+    });
+
+    // Support for Enter key functionality
+    $("#countryInput").keypress(function(e) {
+        if (e.which == 13) $("#searchBtn").click();
+    });
+});
