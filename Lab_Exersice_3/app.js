@@ -271,3 +271,52 @@ const debouncedSearch = debounce(() => {
 }, 500);
 
 cityInput.addEventListener('input', debouncedSearch);
+
+
+/**
+ * RECENT SEARCHES PERSISTENCE
+ */
+const MAX_HISTORY = 5;
+
+// Save name to localStorage
+function saveSearch(cityName) {
+    let history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+    
+    // Remove duplicate if it exists to bring it to the front
+    history = history.filter(item => item.toLowerCase() !== cityName.toLowerCase());
+    
+    // Add to beginning of array
+    history.unshift(cityName);
+    
+    // Limit to 5 items
+    if (history.length > MAX_HISTORY) {
+        history.pop();
+    }
+    
+    localStorage.setItem('weatherHistory', JSON.stringify(history));
+    renderHistory();
+}
+
+// Draw the chips in the UI
+function renderHistory() {
+    const container = document.querySelector('#recent-searches');
+    const history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+    
+    if (history.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = history
+        .map(city => `<span class="history-chip" onclick="searchHistoryCity('${city}')">${city}</span>`)
+        .join('');
+}
+
+// Handler for when a history chip is clicked
+window.searchHistoryCity = function(city) {
+    cityInput.value = city;
+    handleSearch();
+};
+
+// Ensure chips load when page opens
+document.addEventListener('DOMContentLoaded', renderHistory);
