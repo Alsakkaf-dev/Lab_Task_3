@@ -160,7 +160,7 @@ async function loadUsers() {
         const response = await fetch("https://jsonplaceholder.typicode.com/users");
         if (!response.ok) throw new Error("Synchronization failure");
         const users = await response.json();
-        
+
         status.text(`System check: ${users.length} records active.`);
         users.forEach(user => {
             grid.append(`
@@ -181,7 +181,7 @@ async function loadUsers() {
  */
 function loadUserWithJQuery() {
     const url = "https://jsonplaceholder.typicode.com/users/3";
-    $.get(url, function(data) {
+    $.get(url, function (data) {
         $("#result").html(`<strong>Target Identifer:</strong> ${data.name}`);
     });
 }
@@ -194,7 +194,7 @@ $(document).ready(function () {
 
     // Primary UI Event Handlers
     $("#jqLoadBtn").on("click", loadUserWithJQuery);
-    
+
     $("#toggleBtn").on("click", function () {
         $("#userGrid").slideToggle(400);
         $(this).text($(this).text().includes("Hide") ? "Show Grid" : "Hide Grid");
@@ -202,11 +202,11 @@ $(document).ready(function () {
 
     // 4.8 Search Implementation
     // Pre-load data for live search to ensure speed
-    $.get("https://jsonplaceholder.typicode.com/users", function(users) {
+    $.get("https://jsonplaceholder.typicode.com/users", function (users) {
         searchCache = users;
     });
 
-    $("#searchBox").on("keyup", function() {
+    $("#searchBox").on("keyup", function () {
         const query = $(this).val().toLowerCase();
         const results = $("#searchResults");
         results.empty();
@@ -214,7 +214,7 @@ $(document).ready(function () {
         if (query === "") return;
 
         const matches = searchCache.filter(u => u.name.toLowerCase().includes(query));
-        
+
         if (matches.length > 0) {
             $("#searchStatus").text(`Index matches found: ${matches.length}`);
             matches.forEach(u => results.append(`<div class="card"><h3>${u.name}</h3><p>${u.email}</p></div>`));
@@ -249,7 +249,7 @@ async function searchCountry(name) {
         // Component update using jQuery
         $("#flag").attr("src", country.flags.png);
         $("#countryName").text(country.name.common);
-        
+
         // Dynamic construction of info table
         const population = country.population.toLocaleString();
         const region = country.region;
@@ -271,14 +271,14 @@ async function searchCountry(name) {
 /**
  * Bind Search Trigger in main scope
  */
-$(document).ready(function() {
-    $("#searchBtn").on("click", function() {
+$(document).ready(function () {
+    $("#searchBtn").on("click", function () {
         const query = $("#countryInput").val().trim();
         if (query) searchCountry(query);
     });
 
     // Support for Enter key functionality
-    $("#countryInput").keypress(function(e) {
+    $("#countryInput").keypress(function (e) {
         if (e.which == 13) $("#searchBtn").click();
     });
 });
@@ -288,7 +288,7 @@ $(document).ready(function() {
 // ==========================================
 
 // Challenge 3A: Load first 5 posts
-$("#loadPostsBtn").on("click", async function() {
+$("#loadPostsBtn").on("click", async function () {
     const resArea = $("#challengeResult");
     resArea.html("Loading posts...");
     try {
@@ -306,11 +306,11 @@ $("#loadPostsBtn").on("click", async function() {
 });
 
 // Challenge 3B: Specific User by ID
-$("#specificUserBtn").on("click", async function() {
+$("#specificUserBtn").on("click", async function () {
     const id = $("#userIdInput").val();
     const resArea = $("#challengeResult");
-    
-    if(!id || id < 1 || id > 10) {
+
+    if (!id || id < 1 || id > 10) {
         resArea.text("Please enter a valid ID (1-10)");
         return;
     }
@@ -327,7 +327,7 @@ $("#specificUserBtn").on("click", async function() {
 });
 
 // Challenge 4A: Clear Button Logic
-$("#clearSearchBtn").on("click", function() {
+$("#clearSearchBtn").on("click", function () {
     $("#searchBox").val("");         // Empty input
     $("#searchResults").empty();     // Clear results
     $("#searchStatus").text("");     // Reset status
