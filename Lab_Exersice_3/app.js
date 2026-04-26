@@ -159,3 +159,38 @@ async function fetchWithTimeout(url, options = {}) {
         throw error;
     }
 }
+
+async function handleSearch() {
+    const city = cityInput.value.trim();
+    
+    if (!isValidSearch(city)) return;
+
+    try {
+        errorBanner.classList.add('hidden');
+        toggleLoading(true);
+
+        // 1. Resolve coordinates
+        const locationData = await getCoordinates(city);
+        if (!locationData) {
+            toggleLoading(false);
+            showError("City not found. Try another location.");
+            return;
+        }
+
+        // 2. Fetch weather using resolved coordinates
+        const weatherData = await getWeatherData(locationData.latitude, locationData.longitude);
+
+        // 3. Update the display
+        updateUI(weatherData, locationData.name);
+        
+        // Task 3: Local time integration goes here (we will do this next)
+        
+    } catch (err) {
+        showError(err.message || "An unexpected error occurred.");
+    } finally {
+        toggleLoading(false);
+    }
+}
+
+// Attach the search to button click
+searchBtn.addEventListener('click', handleSearch);
