@@ -25,3 +25,22 @@ const weatherCodeMap = {
 function getWeatherInfo(code) {
     return weatherCodeMap[code] || { desc: "Unknown Condition", icon: "🌡️" };
 }
+
+function toggleLoading(isLoading) {
+    const skeletonElements = document.querySelectorAll('.skeleton-text, .forecast-card');
+    
+    skeletonElements.forEach(el => {
+        if (isLoading) {
+            el.classList.add('skeleton');
+        } else {
+            el.classList.remove('skeleton');
+        }
+    });
+}
+
+function showError(message) {
+    errorBanner.textContent = message;
+    errorBanner.classList.remove('hidden');
+    // Helper to clear error when starting a new search
+    setTimeout(() => errorBanner.classList.add('hidden'), 5000);
+}
