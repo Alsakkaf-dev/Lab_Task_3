@@ -261,7 +261,7 @@ $.get("https://jsonplaceholder.typicode.com/users", function(users) {
     // 2. Verifying by converting it to string
     const myJson = JSON.stringify(aboutMe);
     console.log("Exercise 1 JSON:", myJson);
-    
+    e
     // 3. Verifying by parsing it back
     console.log("Verified Object:", JSON.parse(myJson));
     
