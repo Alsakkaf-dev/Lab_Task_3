@@ -141,148 +141,85 @@ fetch("https://jsonplaceholder.typicode.com/users/3")
 
 
 // ==========================================
-// PART 4: jQuery
-// Section 4.1: Fast, small, feature-rich JS library.
-// Motto: "Write Less, Do More."
+// PART 4: jQuery (Interaction & Search)
 // ==========================================
+
+let searchCache = []; // Global cache for search performance
+
 /**
- * UI Manipulation using jQuery
- * Simplified DOM access and modification
- */
-/**
- * asynchronous fetch operation for the user directory
- * integrates Fetch API with DOM injection
+ * Perform server synchronization for the card grid
  */
 async function loadUsers() {
     const status = $("#status");
     const grid = $("#userGrid");
 
-    status.text("Synchronizing data with server...");
-    grid.empty(); // Clear existing entries
+    status.text("Synchronizing...").css("color", "#666");
+    grid.empty();
 
     try {
         const response = await fetch("https://jsonplaceholder.typicode.com/users");
-        if (!response.ok) throw new Error("Data retrieval failed");
-
+        if (!response.ok) throw new Error("Synchronization failure");
         const users = await response.json();
-        status.text(`Load successful: ${users.length} records processed.`);
-
-        // Dynamic construction of user card components
-        users.forEach(user => {
-            const cardMarkup = `
-            <div class="card">
-            <h3>${user.name}</h3>
-            <p>📧 Email: ${user.email}</p>
-            <p>📍 Location: ${user.address.city}</p>
-                </div>
-            `;
-            grid.append(cardMarkup);
-        });
-    } catch (err) {
-        status.text("Critical error during data fetch: " + err.message);
-    }
-}
-$(document).ready(function () {
-    // Applying global header styles via jQuery selectors
-    $(".main-title").css({
-        "padding-bottom": "10px",
-        "border-bottom": "2px solid #2E75B6"
-    });
-    
-    $("#jqLoadBtn").on("click", loadUserWithJQuery);
-    // Update operational status indicator
-    $("#status").text("Application systems initialized. Ready to fetch data.");
-    // Interactive event handler for grid visibility
-    $("#toggleBtn").on("click", function () {
-        // Toggle user cards with transition animation
-        $("#userGrid").slideToggle(400);
         
-        // Provide contextual feedback on button text
-        $(this).text($(this).text().includes("Hide") ? "Show Viewport" : "Hide Viewport");
-    });
-});
-
-// Real-time filtering via keyup event
-$("#searchBox").on("keyup", function() {
-    const query = $(this).val().toLowerCase();
-    const resultsGrid = $("#searchResults");
-    
-    resultsGrid.empty(); // Clear current results
-
-    if (query.length < 1) return;
-
-    // Perform case-insensitive search
-    const matches = searchCache.filter(user => 
-        user.name.toLowerCase().includes(query) || 
-        user.email.toLowerCase().includes(query)
-    );
-
-    // Update UI based on results
-    if (matches.length > 0) {
-        $("#searchStatus").text(`Found ${matches.length} matches.`);
-        matches.forEach(user => {
-            resultsGrid.append(`
+        status.text(`System check: ${users.length} records active.`);
+        users.forEach(user => {
+            grid.append(`
                 <div class="card">
                     <h3>${user.name}</h3>
                     <p>📧 ${user.email}</p>
+                    <p>📍 ${user.address.city}</p>
                 </div>
             `);
         });
-    } else {
-        $("#searchStatus").text("No results found matching your criteria.");
+    } catch (err) {
+        status.text("Error: " + err.message).css("color", "red");
     }
-});
+}
 
-
-// Section 4.8: Local cache for live filtering
-let searchCache = [];
-
-// Initialize search data on startup
-$.get("https://jsonplaceholder.typicode.com/users", function(users) {
-    searchCache = users;
-        $("#searchStatus").text(`${users.length} users indexed for search.`);
+/**
+ * jQuery Shorthand Request Logic
+ */
+function loadUserWithJQuery() {
+    const url = "https://jsonplaceholder.typicode.com/users/3";
+    $.get(url, function(data) {
+        $("#result").html(`<strong>Target Identifer:</strong> ${data.name}`);
     });
+}
+
+// Ensure DOM elements are available before binding events
+$(document).ready(function () {
+    // UI Stylings
+    $(".main-title").css("border-bottom", "3px solid #2E75B6");
+    $("#status").text("Operations ready. Search system initialized.");
+
+    // Primary UI Event Handlers
+    $("#jqLoadBtn").on("click", loadUserWithJQuery);
     
-    
-    
-    // --- Exercise 1 ---
-    
-    // 1. Creating the JavaScript Object (about myself)
-    const aboutMe = {
-        "fullName": "Mohammed_Alsakkaf",
-        "age": 23,
-        "hobbies": ["Coding", "Gaming", "Reading"],
-        "address": {
-            "city": "Johor Bahro",
-            "country": "Malaysia"
+    $("#toggleBtn").on("click", function () {
+        $("#userGrid").slideToggle(400);
+        $(this).text($(this).text().includes("Hide") ? "Show Grid" : "Hide Grid");
+    });
+
+    // 4.8 Search Implementation
+    // Pre-load data for live search to ensure speed
+    $.get("https://jsonplaceholder.typicode.com/users", function(users) {
+        searchCache = users;
+    });
+
+    $("#searchBox").on("keyup", function() {
+        const query = $(this).val().toLowerCase();
+        const results = $("#searchResults");
+        results.empty();
+
+        if (query === "") return;
+
+        const matches = searchCache.filter(u => u.name.toLowerCase().includes(query));
+        
+        if (matches.length > 0) {
+            $("#searchStatus").text(`Index matches found: ${matches.length}`);
+            matches.forEach(u => results.append(`<div class="card"><h3>${u.name}</h3><p>${u.email}</p></div>`));
+        } else {
+            $("#searchStatus").text("Query returned zero matches.");
         }
-    };
-    
-    // 2. Verifying by converting it to string
-    const myJson = JSON.stringify(aboutMe);
-    console.log("Exercise 1 JSON:", myJson);
-    e
-    // 3. Verifying by parsing it back
-    console.log("Verified Object:", JSON.parse(myJson));
-    
-    
-    
-    
-    /**
-     * Implementation of jQuery shorthand AJAX
-     * Demonstrates simplified GET requests
-    */
-   function loadUserWithJQuery() {
-       const url = "https://jsonplaceholder.typicode.com/users/3";
-       
-       // $.get is the specific jQuery method mentioned in Section 4.7
-       $.get(url, function(data) {
-           // We use jQuery's .html() to update the display
-           $("#result").html(`
-            <strong>Fetched via jQuery:</strong> ${data.name}<br>
-            <strong>Username:</strong> ${data.username}
-            `);
-        }).fail(function() {
-            $("#result").text("Error: jQuery request failed.");
-        });
-    }
+    });
+});
