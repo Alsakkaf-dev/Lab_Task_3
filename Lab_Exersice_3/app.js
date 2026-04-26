@@ -122,3 +122,21 @@ function updateUI(weatherData, cityName) {
         forecastContainer.appendChild(card);
     }
 }
+
+// Task 4.18 - Debounce logic
+function debounce(func, delay) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Task 4.17 - Validation check
+function isValidSearch(city) {
+    if (!city || city.trim().length < 2) {
+        showError("Please enter at least 2 characters.");
+        return false;
+    }
+    return true;
+}
