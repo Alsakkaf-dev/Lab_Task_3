@@ -176,7 +176,7 @@ function fetchLocalTime(timezone) {
                 document.querySelector('#local-time').textContent = timeStr;
             }
         })
-        
+
         .fail(function() {
             // Task 3.13 - Fallback to browser's local time
             console.warn("Timezone API failed, using system time as fallback.");
@@ -216,6 +216,14 @@ async function handleSearch() {
 
         // 3. Update the display
         updateUI(weatherData, locationData.name);
+        // NEW: Integration of Task 3
+        if (locationData.timezone) {
+            fetchLocalTime(locationData.timezone);
+        } else {
+            // Instant fallback if geocoder didn't return a timezone
+            document.querySelector('#local-time').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
         
         // Task 3: Local time integration goes here (we will do this next)
         
