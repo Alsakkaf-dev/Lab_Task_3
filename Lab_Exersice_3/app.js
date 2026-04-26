@@ -160,6 +160,40 @@ async function fetchWithTimeout(url, options = {}) {
     }
 }
 
+// Task 3 - jQuery AJAX integration
+function fetchLocalTime(timezone) {
+    const timeUrl = `https://worldtimeapi.org/api/timezone/${timezone}`;
+
+    // Task 3.11 & 3.14 - Using $.getJSON() with method chaining
+    $.getJSON(timeUrl)
+        .done(function(data) {
+            // Task 3.12 - Map and display local time
+            if (data && data.datetime) {
+                const timeStr = new Date(data.datetime).toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                document.querySelector('#local-time').textContent = timeStr;
+            }
+        })
+        
+        .fail(function() {
+            // Task 3.13 - Fallback to browser's local time
+            console.warn("Timezone API failed, using system time as fallback.");
+            const fallbackTime = new Date().toLocaleTimeString([], { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.querySelector('#local-time').textContent = fallbackTime;
+        })
+        .always(function() {
+            // Task 3.15 - Log timestamp of completion
+            const timestamp = new Date().toLocaleTimeString();
+            console.log(`[Time Sync Request Completed at ${timestamp}]`);
+        });
+}
+
+
 async function handleSearch() {
     const city = cityInput.value.trim();
     
