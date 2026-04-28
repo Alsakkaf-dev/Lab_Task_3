@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherNow - Real-Time Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="app-container">
+      <header>
+        <h1>WeatherNow</h1>
+
+        <div class="search-area">
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Enter city name (e.g. London)..."
+            autocomplete="off"
+          />
+          <button id="search-btn">Search</button>
+          <button id="temp-toggle">To °F</button>
+        </div>
+
+        <div id="recent-searches" class="recent-chips-container">
+          <!-- Search history chips will be injected here via JavaScript -->
+        </div>
+
+        <!-- Error message banner (initially hidden) -->
+        <div id="error-banner" class="hidden"></div>
+      </header>
+
+      <main>
+        <section id="current-weather">
+          <section id="forecast">
+            <h3>7-Day Forecast</h3>
+            <div id="forecast-container">
+              <!-- 7 forecast cards (we'll make these dynamic later, but we need the structure now) -->
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+              <div class="forecast-card skeleton"></div>
+            </div>
+          </section>
+
+          <div class="card main-card">
+            <h2 id="city-name" class="skeleton-text">Search for a city</h2>
+
+            <div class="weather-info">
+              <div class="temp-display">
+                <span id="current-temp" class="skeleton-text">--</span>°C
+              </div>
+              <div id="weather-desc" class="skeleton-text">--</div>
+            </div>
+
+            <div class="details-grid">
+              <div class="detail-item">
+                Humidity: <span id="humidity">--</span>%
+              </div>
+
+              <div class="detail-item">
+                Wind: <span id="wind-speed">--</span> km/h
+              </div>
+
+              <div class="detail-item">
+                Local Time: <span id="local-time">--:--</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Scripts will be added later -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
